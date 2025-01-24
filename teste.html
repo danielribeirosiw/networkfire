@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+	<title></title>
+	<meta name="generator" content="LibreOffice 24.8.3.2 (Linux)"/>
+	<meta name="created" content="00:00:00"/>
+	<meta name="changed" content="00:00:00"/>
+	<style type="text/css">
+		@page { size: 8.5in 11in; margin: 0.79in }
+		p { line-height: 115%; margin-bottom: 0.1in; background: transparent }
+		pre { background: transparent }
+		pre.western { font-family: "Liberation Mono", monospace; font-size: 10pt }
+		pre.cjk { font-family: "Noto Sans Mono CJK SC", monospace; font-size: 10pt }
+		pre.ctl { font-family: "Liberation Mono", monospace; font-size: 10pt }
+	</style>
+</head>
+<body lang="en-US" link="#000080" vlink="#800000" dir="ltr"><pre class="western">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;pt-BR&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+    &lt;title&gt;Teste de Velocidade Wi-Fi&lt;/title&gt;
+    
+    &lt;!-- Link para a fonte Montserrat --&gt;
+    &lt;link href=&quot;https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700&amp;display=swap&quot; rel=&quot;stylesheet&quot;&gt;
+
+    &lt;!-- Link para o Bootstrap --&gt;
+    &lt;link href=&quot;https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css&quot; rel=&quot;stylesheet&quot;&gt;
+
+    &lt;script src=&quot;https://cdn.jsdelivr.net/npm/chart.js&quot;&gt;&lt;/script&gt;
+    
+    &lt;style&gt;
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #121212;
+            color: white;
+            padding: 20px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-top: 30px;
+            text-align: center;
+            color: #fff;
+        }
+
+        .container {
+            margin-top: 50px;
+        }
+
+        .card {
+            border: none;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 12px;
+            background-color: #1f1f1f;
+        }
+
+        .card-header {
+            background-color: #1e90ff;
+            color: white;
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: 500;
+            border-radius: 12px 12px 0 0;
+        }
+
+        .btn {
+            background-color: #1e90ff;
+            color: white;
+            padding: 10px 20px;
+            font-size: 1.2rem;
+            border-radius: 8px;
+            transition: background-color 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #145d99;
+        }
+
+        #graph {
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .results {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        #networkInfo {
+            margin-top: 20px;
+            background-color: #333;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .info p {
+            font-size: 1.2rem;
+            color: #ccc;
+        }
+
+        #shareBtn {
+            background-color: #25d366;
+        }
+        
+        .chart-container {
+            max-width: 600px;
+            margin: auto;
+        }
+
+        #logo {
+            max-width: 100%;
+            margin: 20px auto;
+            display: block;
+        }
+
+        .footer {
+            margin-top: 40px;
+            text-align: center;
+            font-size: 0.9rem;
+            color: #888;
+        }
+
+        #whatsappLogo {
+            max-width: 40px;
+        }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+    &lt;!-- Logo no topo --&gt;
+    &lt;img id=&quot;logo&quot; src=&quot;https://dim.mcusercontent.com/cs/00cb4b3b48e31214bbee3631c/images/a7c9d3a3-1fa1-8624-980c-937be575a957.jpg?rect=0%2C595%2C1536%2C347&amp;w=480&amp;dpr=2&quot; alt=&quot;Logo&quot; /&gt;
+
+    &lt;div class=&quot;container&quot;&gt;
+        &lt;div class=&quot;card&quot;&gt;
+            &lt;div class=&quot;card-header&quot;&gt;
+                Resultado do Teste
+            &lt;/div&gt;
+            &lt;div class=&quot;card-body&quot;&gt;
+                &lt;div class=&quot;results&quot;&gt;
+                    &lt;h3 id=&quot;status&quot;&gt;Clique no botão abaixo para testar&lt;/h3&gt;
+                    &lt;p id=&quot;speed&quot;&gt;Velocidade de Download: -- Mbps&lt;/p&gt;
+                    &lt;p id=&quot;upload&quot;&gt;Velocidade de Upload: -- Mbps&lt;/p&gt;
+                    &lt;p id=&quot;ping&quot;&gt;Ping: -- ms&lt;/p&gt;
+                    &lt;button class=&quot;btn&quot; onclick=&quot;startTest()&quot;&gt;Iniciar Teste de Velocidade&lt;/button&gt;
+                &lt;/div&gt;
+
+                &lt;!-- Informações adicionais --&gt;
+                &lt;div class=&quot;info&quot; id=&quot;networkInfo&quot; style=&quot;display: none;&quot;&gt;
+                    &lt;h4&gt;Informações da Rede&lt;/h4&gt;
+                    &lt;p&gt;&lt;strong&gt;IP:&lt;/strong&gt; &lt;span id=&quot;ip&quot;&gt;--&lt;/span&gt;&lt;/p&gt;
+                    &lt;p&gt;&lt;strong&gt;Provedor:&lt;/strong&gt; &lt;span id=&quot;provider&quot;&gt;--&lt;/span&gt;&lt;/p&gt;
+                    &lt;p&gt;&lt;strong&gt;Localização:&lt;/strong&gt; &lt;span id=&quot;location&quot;&gt;--&lt;/span&gt;&lt;/p&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;!-- Gráfico --&gt;
+        &lt;div id=&quot;graph&quot; style=&quot;display: none;&quot;&gt;
+            &lt;h4&gt;Gráfico de Desempenho da Rede&lt;/h4&gt;
+            &lt;div class=&quot;chart-container&quot;&gt;
+                &lt;canvas id=&quot;networkChart&quot;&gt;&lt;/canvas&gt;
+            &lt;/div&gt;
+            &lt;a href=&quot;https://wa.me/?text=Eu%20acabei%20de%20fazer%20um%20teste%20de%20velocidade%20Wi-Fi%21%0A%0ADownload%3A%20{{download}}%20Mbps%0AUpload%3A%20{{upload}}%20Mbps%0APing%3A%20{{ping}}%20ms%0AIP%3A%20{{ip}}%0AProvedor%3A%20{{provider}}%0ALocaliza%C3%A7%C3%A3o%3A%20{{location}}&quot; target=&quot;_blank&quot;&gt;
+                &lt;img id=&quot;whatsappLogo&quot; src=&quot;https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg&quot; alt=&quot;WhatsApp Logo&quot; /&gt;
+            &lt;/a&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;!-- Rodapé --&gt;
+    &lt;div class=&quot;footer&quot;&gt;
+        &lt;p&gt;Função criada por Cinephile, Inc.&lt;/p&gt;
+    &lt;/div&gt;
+
+    &lt;script&gt;
+        // Função para buscar as informações de geolocalização da rede e IP
+        async function fetchNetworkInfo() {
+            try {
+                const response = await fetch('https://ipinfo.io?token=090b19930d1962');
+                const data = await response.json();
+                document.getElementById('ip').innerText = data.ip || 'IP desconhecido';
+                return data;
+            } catch (error) {
+                console.error(&quot;Erro ao obter as informações da rede:&quot;, error);
+                return { ip: 'IP Simulado', org: 'Provedor desconhecido', city: 'Localização desconhecida', region: 'Região desconhecida' };
+            }
+        }
+
+        // Função para iniciar o teste de velocidade
+        function startTest() {
+            document.getElementById('status').innerText = &quot;Testando a velocidade...&quot;;
+            document.getElementById('graph').style.display = 'none';
+            document.getElementById('networkInfo').style.display = 'none';
+
+            // Simulando dados de rede
+            setTimeout(async function() {
+                const download = (Math.random() * 100).toFixed(2);  // Simulando a velocidade de download (Mbps)
+                const upload = (Math.random() * 50).toFixed(2);  // Simulando a velocidade de upload (Mbps)
+                const ping = (Math.random() * 100).toFixed(0);   // Simulando o ping (ms)
+
+                // Buscar informações sobre a rede
+                const networkInfo = await fetchNetworkInfo();
+                const provider = networkInfo.org || 'Provedor Simulado';
+                const location = networkInfo.city ? `${networkInfo.city}, ${networkInfo.region}` : 'Localização Simulada';
+
+                // Exibir resultados
+                document.getElementById('speed').innerText = `Velocidade de Download: ${download} Mbps`;
+                document.getElementById('upload').innerText = `Velocidade de Upload: ${upload} Mbps`;
+                document.getElementById('ping').innerText = `Ping: ${ping} ms`;
+                document.getElementById('status').innerText = &quot;Teste Concluído!&quot;;
+
+                // Exibir informações adicionais
+                document.getElementById('provider').innerText = provider;
+                document.getElementById('location').innerText = location;
+                document.getElementById('networkInfo').style.display = 'block';
+
+                // Gerar gráfico com os dados simulados
+                generateGraph(download, upload, ping);
+                document.getElementById('graph').style.display = 'block';
+
+                // Substituir as variáveis no link do WhatsApp
+                const whatsappLink = `https://wa.me/?text=Eu%20acabei%20de%20fazer%20um%20teste%20de%20velocidade%20Wi-Fi%21%0A%0ADownload%3A%20${download}%20Mbps%0AUpload%3A%20${upload}%20Mbps%0APing%3A%20${ping}%20ms%0AIP%3A%20${networkInfo.ip}%0AProvedor%3A%20${provider}%0ALocaliza%C3%A7%C3%A3o%3A%20${location}`;
+                document.querySelector(&quot;a[href^='https://wa.me/']&quot;).setAttribute(&quot;href&quot;, whatsappLink);
+            }, 1500);  // Reduzindo o tempo de execução do teste para 1,5 segundos
+        }
+
+        // Função para gerar gráfico com os dados simulados
+        function generateGraph(download, upload, ping) {
+            var ctx = document.getElementById('networkChart').getContext('2d');
+            var chart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Download', 'Upload', 'Ping'],
+                    datasets: [{
+                        label: 'Velocidade de Rede (Mbps) / Ping (ms)',
+                        data: [download, upload, ping],
+                        backgroundColor: ['#1e90ff', '#32cd32', '#ff4500'],
+                        borderColor: ['#1e90ff', '#32cd32', '#ff4500'],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        }
+    &lt;/script&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+</body>
+</html>
